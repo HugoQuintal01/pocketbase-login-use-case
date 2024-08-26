@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { auth } from '../../firebase';
 import { signOut, updatePassword, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 const Welcome: React.FC = () => {
-  const [user, setUser] = useState(() => auth.currentUser);
-  const [newPassword, setNewPassword] = useState('');
-  const [currentPasswordForChange, setCurrentPasswordForChange] = useState('');
-  const [currentPasswordForDelete, setCurrentPasswordForDelete] = useState('');
+  const user = useMemo(() => auth.currentUser, []);
+  const [passwords, setPasswords] = useState({ currentForChange: '', newPassword: '', currentForDelete: '' });
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -16,8 +14,6 @@ const Welcome: React.FC = () => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (!currentUser) {
         navigate('/'); // Redirect to home page if user is not authenticated
-      } else {
-        setUser(currentUser);
       }
     });
 
@@ -48,14 +44,13 @@ const Welcome: React.FC = () => {
   const handleChangePassword = async () => {
     if (!user) return;
 
-    const reauthenticated = await reauthenticate(currentPasswordForChange);
+    const reauthenticated = await reauthenticate(passwords.currentForChange);
     if (!reauthenticated) return;
 
     try {
-      await updatePassword(user, newPassword);
+      await updatePassword(user, passwords.newPassword);
       setSuccessMessage('Password updated successfully!');
-      setCurrentPasswordForChange('');
-      setNewPassword('');
+      setPasswords({ ...passwords, currentForChange: '', newPassword: '' });
     } catch (error) {
       setError('Error updating password: ' + (error as Error).message);
     }
@@ -64,7 +59,7 @@ const Welcome: React.FC = () => {
   const handleDeleteAccount = async () => {
     if (!user) return;
 
-    const reauthenticated = await reauthenticate(currentPasswordForDelete);
+    const reauthenticated = await reauthenticate(passwords.currentForDelete);
     if (!reauthenticated) return;
 
     try {
@@ -76,6 +71,13 @@ const Welcome: React.FC = () => {
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPasswords((prev) => ({ ...prev, [name]: value }));
+    setError(null); // Clear error on input change
+    setSuccessMessage(null); // Clear success message on input change
+  };
+
   return (
     <div className="welcome-container col-12">
       <h1 className='col-12'>Welcome, {user?.displayName || 'User'}!</h1>
@@ -85,16 +87,18 @@ const Welcome: React.FC = () => {
         <h3>Change Password</h3>
         <input
           type="password"
+          name="currentForChange"
           placeholder="Current Password"
-          value={currentPasswordForChange}
-          onChange={(e) => setCurrentPasswordForChange(e.target.value)}
+          value={passwords.currentForChange}
+          onChange={handleInputChange}
           className="input-field"
         />
         <input
           type="password"
+          name="newPassword"
           placeholder="New Password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          value={passwords.newPassword}
+          onChange={handleInputChange}
           className="input-field"
         />
         <button onClick={handleChangePassword} className="submit-button">Update Password</button>
@@ -105,9 +109,10 @@ const Welcome: React.FC = () => {
         <h3>Delete Account</h3>
         <input
           type="password"
+          name="currentForDelete"
           placeholder="Current Password"
-          value={currentPasswordForDelete}
-          onChange={(e) => setCurrentPasswordForDelete(e.target.value)}
+          value={passwords.currentForDelete}
+          onChange={handleInputChange}
           className="input-field"
         />
         <button onClick={handleDeleteAccount} className="submit-button delete-button">Delete Account</button>
