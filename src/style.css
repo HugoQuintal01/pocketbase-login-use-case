@@ -828,7 +828,7 @@ p, li, div, span, a {
 }
 @media (min-width: 1180px) and (max-width: 1500px) {
   body .auth-section .auth-container {
-    padding: 0 50px;
+    padding: 50px;
   }
 }
 .welcome-container {
@@ -841,6 +841,31 @@ p, li, div, span, a {
   margin: 10px 0;
   text-align: center;
   position: relative;
+}
+.welcome-container input, .welcome-container textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffffff;
+  border: none;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+.welcome-container .error, .welcome-container .success {
+  line-height: 1.2em;
+  margin-top: 30px;
+  width: 100%;
+}
+.welcome-container .update-info, .welcome-container .delete-account, .welcome-container .button-logout {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+.welcome-container .update-info .delete-button, .welcome-container .delete-account .delete-button, .welcome-container .button-logout .delete-button {
+  background-color: #A32029;
+}
+.welcome-container .update-info .delete-button:hover, .welcome-container .delete-account .delete-button:hover, .welcome-container .button-logout .delete-button:hover {
+  background-color: #E51C1F;
 }
 .welcome-container button {
   display: flex;
