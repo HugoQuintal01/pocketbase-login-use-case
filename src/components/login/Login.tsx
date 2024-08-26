@@ -2,26 +2,38 @@ import React, { useState } from 'react';
 import { auth, appleProvider, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 
+// Error messages dictionary
+const ERROR_MESSAGES = {
+  EMAIL_ALREADY_IN_USE: 'The email address you have entered is already associated with an existing account. Please use a different email address or sign in to your account.',
+  WRONG_PASSWORD: 'The password you entered is incorrect. Please try again.',
+  USER_NOT_FOUND: 'No account found with this email address. Please check your email or register for a new account.',
+  INVALID_EMAIL: 'The email address you entered is invalid. Please enter a valid email address.',
+  PASSWORD_MISMATCH: 'Passwords do not match',
+  WEAK_PASSWORD: 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
+  GENERIC_ERROR: 'The email address or password you entered is incorrect. Please try again.',
+};
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // State for confirm password
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [passwordStrengthError, setPasswordStrengthError] = useState<string | null>(null);
-  const navigate = useNavigate();  // Initialize useNavigate
+  const navigate = useNavigate();
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
-  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === 'email') setEmail(value);
+    if (name === 'password') setPassword(value);
+    if (name === 'confirmPassword') setConfirmPassword(value);
+  };
 
-  // Simple password strength validation function
   const validatePassword = (password: string): string | null => {
-    if (password.length < 8) return 'Password must be at least 8 characters long';
-    if (!/[A-Z]/.test(password)) return 'Password must contain at least one uppercase letter';
-    if (!/[a-z]/.test(password)) return 'Password must contain at least one lowercase letter';
-    if (!/[0-9]/.test(password)) return 'Password must contain at least one number';
-    if (!/[^A-Za-z0-9]/.test(password)) return 'Password must contain at least one special character';
+    if (password.length < 8) return ERROR_MESSAGES.WEAK_PASSWORD;
+    if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/[0-9]/.test(password) || !/[^A-Za-z0-9]/.test(password)) {
+      return ERROR_MESSAGES.WEAK_PASSWORD;
+    }
     return null;
   };
 
@@ -30,16 +42,14 @@ const Login: React.FC = () => {
     setError(null);
     setPasswordStrengthError(null);
 
-    // Validate password strength
     const strengthError = validatePassword(password);
     if (strengthError) {
       setPasswordStrengthError(strengthError);
       return;
     }
 
-    // Confirm password match
     if (isRegistering && password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(ERROR_MESSAGES.PASSWORD_MISMATCH);
       return;
     }
 
@@ -49,38 +59,28 @@ const Login: React.FC = () => {
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
-      navigate('/dashboard'); // Redirect to Dashboard on success
+      navigate('/dashboard');
     } catch (err) {
       const errorMessage = (err as Error).message;
       if (errorMessage.includes('auth/email-already-in-use')) {
-        setError('The email address you have entered is already associated with an existing account. Please use a different email address or sign in to your account.');
+        setError(ERROR_MESSAGES.EMAIL_ALREADY_IN_USE);
       } else if (errorMessage.includes('auth/wrong-password')) {
-        setError('The password you entered is incorrect. Please try again.');
+        setError(ERROR_MESSAGES.WRONG_PASSWORD);
       } else if (errorMessage.includes('auth/user-not-found')) {
-        setError('No account found with this email address. Please check your email or register for a new account.');
+        setError(ERROR_MESSAGES.USER_NOT_FOUND);
       } else if (errorMessage.includes('auth/invalid-email')) {
-        setError('The email address you entered is invalid. Please enter a valid email address.');
+        setError(ERROR_MESSAGES.INVALID_EMAIL);
       } else {
-        setError('The email address or password you entered is incorrect. Please try again.');
+        setError(ERROR_MESSAGES.GENERIC_ERROR);
       }
     }
   };
 
-  const handleAppleSignIn = async () => {
+  const handleSocialSignIn = async (provider: any) => {
     try {
-      const result = await signInWithPopup(auth, appleProvider);
+      const result = await signInWithPopup(auth, provider);
       console.log(result.user);
-      navigate('/dashboard'); // Redirect to Dashboard on success
-    } catch (err) {
-      setError((err as Error).message);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      console.log(result.user);
-      navigate('/dashboard'); // Redirect to Dashboard on success
+      navigate('/dashboard');
     } catch (err) {
       setError((err as Error).message);
     }
@@ -95,31 +95,32 @@ const Login: React.FC = () => {
       <form onSubmit={handleSubmit} className="form-container col-12">
         <input
           type="email"
+          name="email"
           value={email}
-          onChange={handleEmailChange}
+          onChange={handleInputChange}
           placeholder="Email"
           required
           className="input-field"
         />
         <input
           type="password"
+          name="password"
           value={password}
-          onChange={handlePasswordChange}
+          onChange={handleInputChange}
           placeholder="Password"
           required
           className="input-field"
         />
         {isRegistering && (
-          <>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={handleConfirmPasswordChange}
-              placeholder="Confirm Password"
-              required
-              className="input-field"
-            />
-          </>
+          <input
+            type="password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={handleInputChange}
+            placeholder="Confirm Password"
+            required
+            className="input-field"
+          />
         )}
         <button type="submit" className="submit-button">
           {isRegistering ? 'Register' : 'Login'}
@@ -128,10 +129,10 @@ const Login: React.FC = () => {
         {passwordStrengthError && <p className="error">{passwordStrengthError}</p>}
       </form>
       <div className='other-sign col-12'>
-        <button onClick={handleAppleSignIn} className="apple-signin-button">
+        <button onClick={() => handleSocialSignIn(appleProvider)} className="apple-signin-button">
           Sign in with Apple
         </button>
-        <button onClick={handleGoogleSignIn} className="google-signin-button">
+        <button onClick={() => handleSocialSignIn(googleProvider)} className="google-signin-button">
           Sign in with Google
         </button>
         <button onClick={() => setIsRegistering(!isRegistering)} className="toggle-auth-button">
