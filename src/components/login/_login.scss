@@ -26,6 +26,9 @@
         }
 
         button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             position: relative;
             padding: 10px 20px;
             background-color: $primary;
@@ -41,6 +44,7 @@
 
             &:hover{
                 background-color: $secundary;
+                box-shadow: $boxshadow;
             }
         }
     }
@@ -53,6 +57,9 @@
         margin-top: 20px;
 
         button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
             position: relative;
             padding: 10px 20px;
             background-color: $primary;
@@ -67,14 +74,19 @@
             transition-duration: $animationtime;
 
             &:hover{
-                background-color: $third;
+                background-color: $secundary;
                 color: $white;
                 border-color: $transparent;
+                box-shadow: $boxshadow;
             }
         }
 
         .apple-signin-button{
             background-color: $black;
+        }
+
+        .google-signin-button{
+            background-color: $blue;
         }
 
         .toggle-auth-button{

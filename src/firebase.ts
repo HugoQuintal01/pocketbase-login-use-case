@@ -1,8 +1,8 @@
 // firebase.ts
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, OAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, OAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
-// Your web app's Firebase configuration
+// Web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -15,6 +15,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const appleProvider = new OAuthProvider('apple.com');
 
-export { auth, appleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup };
+const appleProvider = new OAuthProvider('apple.com');
+const googleProvider = new GoogleAuthProvider();
+
+export { auth, appleProvider, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup };

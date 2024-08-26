@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth, appleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from '../../firebase';
+import { auth, appleProvider, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from '../../firebase';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -35,6 +35,16 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      // Handle result.user as needed
+      console.log(result.user);
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  };
+
   return (
     <div className="login-container col-12 col-t-6 col-d-6">
       <h2 className='login-container-title col-12'>{isRegistering ? 'Use Case Register' : 'Use Case Login'}</h2>
@@ -63,12 +73,14 @@ const Login: React.FC = () => {
         <button onClick={handleAppleSignIn} className="apple-signin-button">
           Sign in with Apple
         </button>
+        <button onClick={handleGoogleSignIn} className="google-signin-button">
+          Sign in with Google
+        </button>
         {error && <p className="error">{error}</p>}
         <button onClick={() => setIsRegistering(!isRegistering)} className="toggle-auth-button">
           {isRegistering ? 'Already have an account? Login' : 'Need an account? Register'}
         </button>
       </div>
-      
     </div>
   );
 };
