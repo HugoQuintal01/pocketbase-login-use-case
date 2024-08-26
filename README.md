@@ -28,7 +28,7 @@ This project is a React-based authentication system that includes login, registr
 - User login with email and password.
 - Password strength validation during registration.
 - OAuth authentication using Google and Apple.
-- Clear and professional error messages for common authentication issues.
+- Clear error messages for common authentication issues.
 - Responsive design with conditional rendering for login and registration.
 
 ## Getting Started
@@ -51,12 +51,12 @@ cd login-use-case
 npm install
 
 4. Set up Firebase configuration by creating a .env file in the root directory with the following variables:
-REACT_APP_FIREBASE_API_KEY=your-api-key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-REACT_APP_FIREBASE_APP_ID=your-app-id
+- REACT_APP_FIREBASE_API_KEY=your-api-key
+- REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+- REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+- REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
+- REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+- REACT_APP_FIREBASE_APP_ID=your-app-id
 
 ### Usage
 
@@ -97,3 +97,8 @@ Remember to follow the project's coding standards and best practices when contri
 ---
 
 I hope this helps! Let me know if you have any questions.
+
+---
+
+Check more projects at:
+https://hugoquintal.pt/
