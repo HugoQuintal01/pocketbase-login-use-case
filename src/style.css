@@ -644,8 +644,10 @@ p, li, div, span, a {
 }
 .login-container .login-container-title h2 {
   text-align: center;
+  line-height: 1.2em;
 }
 .login-container .login-container-title p {
+  line-height: 1.2em;
   margin-top: 5px;
   text-align: center;
 }
@@ -730,6 +732,16 @@ p, li, div, span, a {
   background-color: rgba(0, 0, 0, 0);
 }
 
+@media (max-width: 600px) {
+  body .login-container .login-container-title p {
+    margin-top: 20px;
+  }
+}
+@media (min-width: 600px) and (max-width: 1180px) {
+  body .login-container .login-container-title p {
+    margin-top: 20px;
+  }
+}
 .auth-animation-container {
   position: relative;
   display: flex;
@@ -764,6 +776,16 @@ p, li, div, span, a {
   background-color: #eeeeee;
 }
 
+@media (max-width: 600px) {
+  body .auth-section .auth-container {
+    padding: 0;
+  }
+}
+@media (min-width: 1180px) and (max-width: 1500px) {
+  body .auth-section .auth-container {
+    padding: 0 50px;
+  }
+}
 .welcome-container {
   display: flex;
   justify-content: center;

@@ -21,3 +21,24 @@
     }
 }
 
+// Responsive
+
+// Mobile
+@media (max-width: 600px) {
+    body {
+      
+        .auth-section .auth-container{
+            padding: 0;
+        }
+    }
+}
+
+// Laptop
+@media (min-width: 1180px) and (max-width: 1500px) {
+    body {
+      
+        .auth-section .auth-container{
+            padding: 0 50px;
+        }
+    }
+}

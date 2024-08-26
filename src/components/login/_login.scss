@@ -12,9 +12,11 @@
 
         h2{
             text-align: center;
+            line-height: 1.2em;
         }
 
         p{
+            line-height: 1.2em;
             margin-top: 5px;
             text-align: center;
         }
@@ -111,3 +113,26 @@
         }
     }
 }
+
+// Responsive
+
+// Mobile
+@media (max-width: 600px) {
+    body {
+      
+        .login-container .login-container-title p{
+            margin-top: 20px;
+        }
+    }
+}
+
+// Tablet
+@media (min-width:600px) and (max-width: 1180px) {
+    body {
+      
+        .login-container .login-container-title p{
+            margin-top: 20px;
+        }
+    }
+}
+  
