@@ -67,6 +67,11 @@ table {
     width: 1170px;
   }
 }
+@media (min-width: 1500px) {
+  .gridrow {
+    width: 1170px;
+  }
+}
 
 .gridrowfull, .gridrow {
   display: flex;
@@ -424,43 +429,162 @@ table {
     margin-left: 100%;
   }
 }
-.gridrowfull.nogutter .col, .gridrowfull.nogutter .col-t, .gridrowfull.nogutter .col-d, .gridrow.nogutter .col, .gridrow.nogutter .col-t, .gridrow.nogutter .col-d {
+@media (min-width: 1500px) {
+  .gridrowfull .col-ld, .gridrow .col-ld {
+    flex: 1;
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld, .gridrow .offset-ld {
+    margin-left: 0;
+  }
+  .gridrowfull .col-ld-1, .gridrow .col-ld-1 {
+    box-sizing: border-box;
+    width: 8.3333333333%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-1, .gridrow .offset-ld-1 {
+    margin-left: 8.3333333333%;
+  }
+  .gridrowfull .col-ld-2, .gridrow .col-ld-2 {
+    box-sizing: border-box;
+    width: 16.6666666667%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-2, .gridrow .offset-ld-2 {
+    margin-left: 16.6666666667%;
+  }
+  .gridrowfull .col-ld-3, .gridrow .col-ld-3 {
+    box-sizing: border-box;
+    width: 25%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-3, .gridrow .offset-ld-3 {
+    margin-left: 25%;
+  }
+  .gridrowfull .col-ld-4, .gridrow .col-ld-4 {
+    box-sizing: border-box;
+    width: 33.3333333333%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-4, .gridrow .offset-ld-4 {
+    margin-left: 33.3333333333%;
+  }
+  .gridrowfull .col-ld-5, .gridrow .col-ld-5 {
+    box-sizing: border-box;
+    width: 41.6666666667%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-5, .gridrow .offset-ld-5 {
+    margin-left: 41.6666666667%;
+  }
+  .gridrowfull .col-ld-6, .gridrow .col-ld-6 {
+    box-sizing: border-box;
+    width: 50%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-6, .gridrow .offset-ld-6 {
+    margin-left: 50%;
+  }
+  .gridrowfull .col-ld-7, .gridrow .col-ld-7 {
+    box-sizing: border-box;
+    width: 58.3333333333%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-7, .gridrow .offset-ld-7 {
+    margin-left: 58.3333333333%;
+  }
+  .gridrowfull .col-ld-8, .gridrow .col-ld-8 {
+    box-sizing: border-box;
+    width: 66.6666666667%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-8, .gridrow .offset-ld-8 {
+    margin-left: 66.6666666667%;
+  }
+  .gridrowfull .col-ld-9, .gridrow .col-ld-9 {
+    box-sizing: border-box;
+    width: 75%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-9, .gridrow .offset-ld-9 {
+    margin-left: 75%;
+  }
+  .gridrowfull .col-ld-10, .gridrow .col-ld-10 {
+    box-sizing: border-box;
+    width: 83.3333333333%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-10, .gridrow .offset-ld-10 {
+    margin-left: 83.3333333333%;
+  }
+  .gridrowfull .col-ld-11, .gridrow .col-ld-11 {
+    box-sizing: border-box;
+    width: 91.6666666667%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-11, .gridrow .offset-ld-11 {
+    margin-left: 91.6666666667%;
+  }
+  .gridrowfull .col-ld-12, .gridrow .col-ld-12 {
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .gridrowfull .offset-ld-12, .gridrow .offset-ld-12 {
+    margin-left: 100%;
+  }
+}
+.gridrowfull.nogutter .col, .gridrowfull.nogutter .col-t, .gridrowfull.nogutter .col-d, .gridrowfull.nogutter .col-ld, .gridrow.nogutter .col, .gridrow.nogutter .col-t, .gridrow.nogutter .col-d, .gridrow.nogutter .col-ld {
   padding: 0;
 }
-.gridrowfull.nogutter .col-1, .gridrowfull.nogutter .col-t-1, .gridrowfull.nogutter .col-d-1, .gridrow.nogutter .col-1, .gridrow.nogutter .col-t-1, .gridrow.nogutter .col-d-1 {
+.gridrowfull.nogutter .col-1, .gridrowfull.nogutter .col-t-1, .gridrowfull.nogutter .col-d-1, .gridrowfull.nogutter .col-ld-1, .gridrow.nogutter .col-1, .gridrow.nogutter .col-t-1, .gridrow.nogutter .col-d-1, .gridrow.nogutter .col-ld-1 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-2, .gridrowfull.nogutter .col-t-2, .gridrowfull.nogutter .col-d-2, .gridrow.nogutter .col-2, .gridrow.nogutter .col-t-2, .gridrow.nogutter .col-d-2 {
+.gridrowfull.nogutter .col-2, .gridrowfull.nogutter .col-t-2, .gridrowfull.nogutter .col-d-2, .gridrowfull.nogutter .col-ld-2, .gridrow.nogutter .col-2, .gridrow.nogutter .col-t-2, .gridrow.nogutter .col-d-2, .gridrow.nogutter .col-ld-2 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-3, .gridrowfull.nogutter .col-t-3, .gridrowfull.nogutter .col-d-3, .gridrow.nogutter .col-3, .gridrow.nogutter .col-t-3, .gridrow.nogutter .col-d-3 {
+.gridrowfull.nogutter .col-3, .gridrowfull.nogutter .col-t-3, .gridrowfull.nogutter .col-d-3, .gridrowfull.nogutter .col-ld-3, .gridrow.nogutter .col-3, .gridrow.nogutter .col-t-3, .gridrow.nogutter .col-d-3, .gridrow.nogutter .col-ld-3 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-4, .gridrowfull.nogutter .col-t-4, .gridrowfull.nogutter .col-d-4, .gridrow.nogutter .col-4, .gridrow.nogutter .col-t-4, .gridrow.nogutter .col-d-4 {
+.gridrowfull.nogutter .col-4, .gridrowfull.nogutter .col-t-4, .gridrowfull.nogutter .col-d-4, .gridrowfull.nogutter .col-ld-4, .gridrow.nogutter .col-4, .gridrow.nogutter .col-t-4, .gridrow.nogutter .col-d-4, .gridrow.nogutter .col-ld-4 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-5, .gridrowfull.nogutter .col-t-5, .gridrowfull.nogutter .col-d-5, .gridrow.nogutter .col-5, .gridrow.nogutter .col-t-5, .gridrow.nogutter .col-d-5 {
+.gridrowfull.nogutter .col-5, .gridrowfull.nogutter .col-t-5, .gridrowfull.nogutter .col-d-5, .gridrowfull.nogutter .col-ld-5, .gridrow.nogutter .col-5, .gridrow.nogutter .col-t-5, .gridrow.nogutter .col-d-5, .gridrow.nogutter .col-ld-5 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-6, .gridrowfull.nogutter .col-t-6, .gridrowfull.nogutter .col-d-6, .gridrow.nogutter .col-6, .gridrow.nogutter .col-t-6, .gridrow.nogutter .col-d-6 {
+.gridrowfull.nogutter .col-6, .gridrowfull.nogutter .col-t-6, .gridrowfull.nogutter .col-d-6, .gridrowfull.nogutter .col-ld-6, .gridrow.nogutter .col-6, .gridrow.nogutter .col-t-6, .gridrow.nogutter .col-d-6, .gridrow.nogutter .col-ld-6 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-7, .gridrowfull.nogutter .col-t-7, .gridrowfull.nogutter .col-d-7, .gridrow.nogutter .col-7, .gridrow.nogutter .col-t-7, .gridrow.nogutter .col-d-7 {
+.gridrowfull.nogutter .col-7, .gridrowfull.nogutter .col-t-7, .gridrowfull.nogutter .col-d-7, .gridrowfull.nogutter .col-ld-7, .gridrow.nogutter .col-7, .gridrow.nogutter .col-t-7, .gridrow.nogutter .col-d-7, .gridrow.nogutter .col-ld-7 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-8, .gridrowfull.nogutter .col-t-8, .gridrowfull.nogutter .col-d-8, .gridrow.nogutter .col-8, .gridrow.nogutter .col-t-8, .gridrow.nogutter .col-d-8 {
+.gridrowfull.nogutter .col-8, .gridrowfull.nogutter .col-t-8, .gridrowfull.nogutter .col-d-8, .gridrowfull.nogutter .col-ld-8, .gridrow.nogutter .col-8, .gridrow.nogutter .col-t-8, .gridrow.nogutter .col-d-8, .gridrow.nogutter .col-ld-8 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-9, .gridrowfull.nogutter .col-t-9, .gridrowfull.nogutter .col-d-9, .gridrow.nogutter .col-9, .gridrow.nogutter .col-t-9, .gridrow.nogutter .col-d-9 {
+.gridrowfull.nogutter .col-9, .gridrowfull.nogutter .col-t-9, .gridrowfull.nogutter .col-d-9, .gridrowfull.nogutter .col-ld-9, .gridrow.nogutter .col-9, .gridrow.nogutter .col-t-9, .gridrow.nogutter .col-d-9, .gridrow.nogutter .col-ld-9 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-10, .gridrowfull.nogutter .col-t-10, .gridrowfull.nogutter .col-d-10, .gridrow.nogutter .col-10, .gridrow.nogutter .col-t-10, .gridrow.nogutter .col-d-10 {
+.gridrowfull.nogutter .col-10, .gridrowfull.nogutter .col-t-10, .gridrowfull.nogutter .col-d-10, .gridrowfull.nogutter .col-ld-10, .gridrow.nogutter .col-10, .gridrow.nogutter .col-t-10, .gridrow.nogutter .col-d-10, .gridrow.nogutter .col-ld-10 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-11, .gridrowfull.nogutter .col-t-11, .gridrowfull.nogutter .col-d-11, .gridrow.nogutter .col-11, .gridrow.nogutter .col-t-11, .gridrow.nogutter .col-d-11 {
+.gridrowfull.nogutter .col-11, .gridrowfull.nogutter .col-t-11, .gridrowfull.nogutter .col-d-11, .gridrowfull.nogutter .col-ld-11, .gridrow.nogutter .col-11, .gridrow.nogutter .col-t-11, .gridrow.nogutter .col-d-11, .gridrow.nogutter .col-ld-11 {
   padding: 0;
 }
-.gridrowfull.nogutter .col-12, .gridrowfull.nogutter .col-t-12, .gridrowfull.nogutter .col-d-12, .gridrow.nogutter .col-12, .gridrow.nogutter .col-t-12, .gridrow.nogutter .col-d-12 {
+.gridrowfull.nogutter .col-12, .gridrowfull.nogutter .col-t-12, .gridrowfull.nogutter .col-d-12, .gridrowfull.nogutter .col-ld-12, .gridrow.nogutter .col-12, .gridrow.nogutter .col-t-12, .gridrow.nogutter .col-d-12, .gridrow.nogutter .col-ld-12 {
   padding: 0;
 }
 

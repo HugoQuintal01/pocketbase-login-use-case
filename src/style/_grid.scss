@@ -10,6 +10,9 @@
     @media(min-width: $desktop){
         width: $gridwidthd;
     }
+    @media(min-width: $largedesktop){
+        width: $gridwidthd;
+    }
 }
 
 .gridrowfull, .gridrow{
@@ -76,12 +79,34 @@
             }
         }
     }
+    @media(min-width: $largedesktop){
+        .col-ld{
+            flex: 1;
+            box-sizing: border-box;
+            padding-left: calc($gridgutter / 2);
+            padding-right: calc($gridgutter / 2);
+        }
+        .offset-ld{
+            margin-left: 0;
+        }
+        @for $i from 1 through $gridcolumns {
+            .col-ld-#{$i} {
+                box-sizing: border-box;
+                width: percentage($i/$gridcolumns);
+                padding-left: calc($gridgutter / 2);
+                padding-right: calc($gridgutter / 2);
+            }
+            .offset-ld-#{$i} {
+                margin-left: percentage($i/$gridcolumns);
+            }
+        }
+    }
     &.nogutter{
-        .col, .col-t, .col-d {
+        .col, .col-t, .col-d, .col-ld {
             padding: 0;
         }
         @for $i from 1 through $gridcolumns {
-            .col-#{$i}, .col-t-#{$i}, .col-d-#{$i} {
+            .col-#{$i}, .col-t-#{$i}, .col-d-#{$i},.col-ld-#{$i} {
                 padding: 0;
             }
         }
