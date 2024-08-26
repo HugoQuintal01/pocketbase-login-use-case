@@ -19,6 +19,9 @@
 
 This project is a React-based authentication system that includes login, registration, and password recovery features. It uses Firebase for user authentication and supports email/password as well as OAuth providers like Google and Apple.
 
+**Note:** On the home page, you can uncomment the `<AuthAnimation />` component to display a Lottie animation.
+
+
 ## Features
 
 - User registration with email and password.
@@ -39,7 +42,7 @@ This project is a React-based authentication system that includes login, registr
 ### Installation
 
 1. Clone the repository:
-git clone https://github.com/your-username/login-use-case.git
+git clone https://github.com/hugoquintal01/login-use-case.git
 
 2. Navigate to the project directory:
 cd login-use-case
