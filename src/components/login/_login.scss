@@ -64,7 +64,53 @@
                 box-shadow: $boxshadow;
             }
         }
+
+        .forgot-password-button{
+            background-color: $transparent;
+            color: $black;
+            text-transform: capitalize;
+            padding: 0;
+            width: fit-content;
+            font-size: 0.8em;
+
+            &:hover{
+                background-color: $transparent;
+                box-shadow: none;
+                font-weight: 500;
+            }
+        }
+
+        .reset-password-container{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background-color: $primary;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: $boxshadow;
+
+            .reset-password-content{
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+
+                button{
+                    background-color: $fifth;
+                    font-size: 0.8em;
+
+                    &:hover{
+                        background-color: $secundary;
+                    }
+                }
+
+                .error{
+                    color: $white;
+                }
+            }
+        }
     }
+
+    
 
     .other-sign{
         display: flex;

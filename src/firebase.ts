@@ -1,6 +1,6 @@
 // firebase.ts
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, OAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, OAuthProvider, GoogleAuthProvider, sendPasswordResetEmail } from 'firebase/auth';
 
 // Web app's Firebase configuration
 const firebaseConfig = {
@@ -19,4 +19,12 @@ const auth = getAuth(app);
 const appleProvider = new OAuthProvider('apple.com');
 const googleProvider = new GoogleAuthProvider();
 
-export { auth, appleProvider, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup };
+export { 
+  auth, 
+  appleProvider, 
+  googleProvider, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signInWithPopup,
+  sendPasswordResetEmail // Export sendPasswordResetEmail function
+};

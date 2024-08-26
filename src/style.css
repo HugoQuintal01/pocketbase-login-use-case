@@ -690,6 +690,44 @@ p, li, div, span, a {
   background-color: #0BBF7D;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
+.login-container .form-container .forgot-password-button {
+  background-color: rgba(0, 0, 0, 0);
+  color: #0D0D0D;
+  text-transform: capitalize;
+  padding: 0;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 0.8em;
+}
+.login-container .form-container .forgot-password-button:hover {
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  font-weight: 500;
+}
+.login-container .form-container .reset-password-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #147350;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+.login-container .form-container .reset-password-container .reset-password-content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.login-container .form-container .reset-password-container .reset-password-content button {
+  background-color: #0f9262;
+  font-size: 0.8em;
+}
+.login-container .form-container .reset-password-container .reset-password-content button:hover {
+  background-color: #0BBF7D;
+}
+.login-container .form-container .reset-password-container .reset-password-content .error {
+  color: #ffffff;
+}
 .login-container .other-sign {
   display: flex;
   justify-content: center;

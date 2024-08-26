@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { auth, appleProvider, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from '../../firebase';
+import { auth, appleProvider, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, sendPasswordResetEmail } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 
 // Error messages dictionary
@@ -20,6 +20,9 @@ const Login: React.FC = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [passwordStrengthError, setPasswordStrengthError] = useState<string | null>(null);
+  const [resetEmail, setResetEmail] = useState('');
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [resetError, setResetError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +30,7 @@ const Login: React.FC = () => {
     if (name === 'email') setEmail(value);
     if (name === 'password') setPassword(value);
     if (name === 'confirmPassword') setConfirmPassword(value);
+    if (name === 'resetEmail') setResetEmail(value);
   };
 
   const validatePassword = (password: string): string | null => {
@@ -86,6 +90,17 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleResetPassword = async () => {
+    try {
+      await sendPasswordResetEmail(auth, resetEmail);
+      alert('Password reset email sent! Please check your inbox.');
+      setShowResetPassword(false);
+    } catch (error) {
+      console.error('Error sending password reset email: ', error);
+      setResetError('Error sending password reset email. Please try again.');
+    }
+  };
+
   return (
     <div className="login-container col-12 col-t-12 col-d-8 col-ld-8">
       <div className='login-container-title col-12'>
@@ -127,6 +142,36 @@ const Login: React.FC = () => {
         </button>
         {error && <p className="error">{error}</p>}
         {passwordStrengthError && <p className="error">{passwordStrengthError}</p>}
+        {!isRegistering && (
+          <>
+            <button
+              type="button"
+              onClick={() => setShowResetPassword(!showResetPassword)}
+              className="forgot-password-button"
+            >
+              Forgot Password?
+            </button>
+            {showResetPassword && (
+              <div className="reset-password-container">
+                <div className="reset-password-content">
+                  <input
+                    type="email"
+                    name="resetEmail"
+                    value={resetEmail}
+                    onChange={handleInputChange}
+                    placeholder="Enter your email"
+                    required
+                    className="input-field"
+                  />
+                  <button type="button" onClick={handleResetPassword} className="submit-button">
+                    Send Password Reset Email
+                  </button>
+                  {resetError && <p className="error">{resetError}</p>}
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </form>
       <div className='other-sign col-12'>
         <button onClick={() => handleSocialSignIn(appleProvider)} className="apple-signin-button">
