@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { auth, appleProvider, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();  // Initialize useNavigate
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value);
@@ -20,6 +22,7 @@ const Login: React.FC = () => {
       } else {
         await signInWithEmailAndPassword(auth, email, password);
       }
+      navigate('/dashboard'); // Redirect to Dashboard on success
     } catch (err) {
       setError((err as Error).message);
     }
@@ -28,8 +31,8 @@ const Login: React.FC = () => {
   const handleAppleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, appleProvider);
-      // Handle result.user as needed
       console.log(result.user);
+      navigate('/dashboard'); // Redirect to Dashboard on success
     } catch (err) {
       setError((err as Error).message);
     }
@@ -38,8 +41,8 @@ const Login: React.FC = () => {
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      // Handle result.user as needed
       console.log(result.user);
+      navigate('/dashboard'); // Redirect to Dashboard on success
     } catch (err) {
       setError((err as Error).message);
     }
@@ -47,7 +50,10 @@ const Login: React.FC = () => {
 
   return (
     <div className="login-container col-12 col-t-6 col-d-6">
-      <h2 className='login-container-title col-12'>{isRegistering ? 'Use Case Register' : 'Use Case Login'}</h2>
+      <div className='login-container-title col-12'>
+        <h2 className='col-12'>{isRegistering ? 'Create Your Account' : 'Sign In to Your Account'}</h2>
+        <p>{isRegistering ? 'Join us by creating a new account.' : 'Please sign in to continue.'}</p>
+      </div>
       <form onSubmit={handleSubmit} className="form-container col-12">
         <input
           type="email"

@@ -1,12 +1,18 @@
-import AuthContainer from './components/auth-container/AuthContainer';
-import './style.css';
+// src/App.tsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home'; // Import Home page
+import Dashboard from './pages/Dashboard'; // Import Dashboard page
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <AuthContainer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} /> {/* Home route */}
+        <Route path="/dashboard" element={<Dashboard />} /> {/* Dashboard route */}
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

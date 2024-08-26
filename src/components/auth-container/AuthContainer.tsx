@@ -1,16 +1,18 @@
-import React from "react";
-import AuthAnimation from "../auth-animation/AuthAnimation";
-import Login from "../login/Login";
+// src/components/auth-container/AuthContainer.tsx
+import React from 'react';
 
-const AuthContainer = () => {
-    return(
-        <section className="auth-section gridrowfull">
-            <div className="auth-container col-8">
-                <AuthAnimation />
-                <Login />
-            </div>
-        </section>
-    );
+interface AuthContainerProps {
+  children: React.ReactNode; // Define children prop
+}
+
+const AuthContainer: React.FC<AuthContainerProps> = ({ children }) => {
+  return (
+    <section className="auth-section gridrowfull">
+      <div className="auth-container col-8">
+        {children}
+      </div>
+    </section>
+  );
 }
 
 export default AuthContainer;
