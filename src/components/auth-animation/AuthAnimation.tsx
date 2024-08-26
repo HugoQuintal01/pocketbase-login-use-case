@@ -12,7 +12,7 @@ const AuthAnimation: React.FC = () => {
     }, []);
 
     return (
-        <div className="auth-animation-container col-12 col-t-6 col-d-6">
+        <div className="auth-animation-container col-12 col-t-6 col-d-4 col-ld-4">
             <Lottie
                 animationData={animationData}
                 loop={true}

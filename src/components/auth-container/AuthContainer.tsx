@@ -8,7 +8,7 @@ interface AuthContainerProps {
 const AuthContainer: React.FC<AuthContainerProps> = ({ children }) => {
   return (
     <section className="auth-section gridrowfull">
-      <div className="auth-container col-12 col-t-12 col-d-8 col-ld-8">
+      <div className="auth-container col-12 col-t-12 col-d-8 col-ld-6">
         {children}
       </div>
     </section>

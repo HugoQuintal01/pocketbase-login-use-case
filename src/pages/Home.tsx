@@ -19,7 +19,7 @@ const Home: React.FC = () => {
   return (
     <div className="login-page">
       <AuthContainer>
-        
+        {/* <AuthAnimation /> */}
         <Login />
       </AuthContainer>
     </div>

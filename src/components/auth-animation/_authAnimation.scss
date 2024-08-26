@@ -11,3 +11,15 @@
         padding: 0px;
     }
 }
+
+// Responsive
+
+// Laptop
+@media (max-width: 1500px) {
+    body {
+      
+        .auth-animation-container{
+            padding: 0;
+        }
+    }
+}

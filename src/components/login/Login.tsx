@@ -87,7 +87,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="login-container col-12 col-t-12 col-d-10 col-ld-6">
+    <div className="login-container col-12 col-t-12 col-d-8 col-ld-8">
       <div className='login-container-title col-12'>
         <h2 className='col-12'>{isRegistering ? 'Create Your Account' : 'Sign In to Your Account'}</h2>
         <p>{isRegistering ? 'Join us by creating a new account.' : 'Please sign in to continue.'}</p>

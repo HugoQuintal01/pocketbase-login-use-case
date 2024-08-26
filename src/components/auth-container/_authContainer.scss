@@ -3,7 +3,7 @@
     justify-content: center;
     align-content: center;
     flex-wrap: wrap;
-    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
     padding: 5%;
     background-color: $primary;
@@ -14,6 +14,7 @@
         display: flex;
         justify-content: center;
         align-content: center;
+        flex-wrap: wrap;
         padding: 50px;
         border-radius: 25px;
         box-shadow: $boxshadow;
@@ -29,7 +30,10 @@
       
         .auth-section .auth-container{
             padding: 0;
+            flex-direction: column-reverse;
         }
+
+
     }
 }
 
