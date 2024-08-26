@@ -539,6 +539,10 @@ p, li, div, span, a {
   margin: 10px 0;
   border-radius: 10px;
 }
+.login-container .form-container p {
+  line-height: 1.2em;
+  margin-top: 10px;
+}
 .login-container .form-container button {
   display: flex;
   justify-content: center;
