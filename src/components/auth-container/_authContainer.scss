@@ -1,0 +1,23 @@
+.auth-section{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 5%;
+    background-color: $primary;
+    background-image: linear-gradient(135deg, $black 0%, $primary 100%);
+
+
+    .auth-container{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        padding: 100px 50px;
+        border-radius: 25px;
+        box-shadow: $boxshadow;
+        background-color: $forth;
+    }
+}
+

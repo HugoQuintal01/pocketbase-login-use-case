@@ -1,0 +1,25 @@
+// Normal Imports
+@import './style/reset';
+@import './style/variables';
+@import './style/grid';
+@import './style/fonts';
+
+// Components
+@import './components/login/login';
+@import './components/auth-animation/authAnimation';
+@import './components/auth-container/authContainer';
+
+// Main css
+html, body{
+    scroll-behavior: smooth;
+//    overflow-x: hidden;
+}
+
+*{
+    -ms-overflow-style: none;  /* IE 10+ */
+      scrollbar-width: none;  /* Firefox */
+  
+      &::-webkit-scrollbar { 
+        display: none;  /* Safari and Chrome */
+      }
+}

@@ -1,0 +1,30 @@
+$titlesfont: "Roboto";
+$titlesfontweights: "300;400;500;600;700;800;900";
+$bodyfont: "Roboto";
+$bodyfontweights: "400";
+
+// Color palette
+// https://color.adobe.com/pt/trends
+$primary: #147350;
+$secundary: #0BBF7D;
+$third: #595959;
+$forth: #eeeeee;
+$transparent: #00000000;
+$white: #ffffff;
+$black: #0D0D0D;
+
+$animationtime: 0.3s;
+$letterspacing: 2px;
+
+$boxshadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+
+$tablet: 750px;
+$desktop: 1200px;
+
+$gridcolumns: 12;
+$gridgutter: 30px;
+
+$gridwidth: 100%;
+$gridwidtht: 90%;
+$gridwidthd: $desktop - $gridgutter;
+
