@@ -636,6 +636,38 @@ p, li, div, span, a {
   background-color: #eeeeee;
 }
 
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.welcome-container h1, .welcome-container p {
+  margin: 10px 0;
+  text-align: center;
+  position: relative;
+}
+.welcome-container button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 10px 30px;
+  background-color: #147350;
+  color: #ffffff;
+  border-radius: 10px;
+  border-color: rgba(0, 0, 0, 0);
+  margin-top: 20px;
+  font-size: 1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.welcome-container button:hover {
+  background-color: #0BBF7D;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
 html, body {
   scroll-behavior: smooth;
 }

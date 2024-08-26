@@ -23,9 +23,9 @@ const Welcome: React.FC = () => {
   }
 
   return (
-    <div className="welcome-container">
-      <h1>Welcome, {auth.currentUser.displayName || 'User'}!</h1>
-      <p>Email: {auth.currentUser.email}</p>
+    <div className="welcome-container col-12">
+      <h1 className='col-12'>Welcome, {auth.currentUser.displayName || 'User'}!</h1>
+      <p className='col-12'>Email: {auth.currentUser.email}</p>
       <button onClick={handleLogout} className="logout-button">
         Logout
       </button>

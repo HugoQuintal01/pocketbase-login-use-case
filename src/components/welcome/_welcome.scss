@@ -1,0 +1,34 @@
+.welcome-container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+
+    h1, p{
+        margin: 10px 0;
+        text-align: center;
+        position: relative;
+    }
+
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        padding: 10px 30px;
+        background-color: $primary;
+        color: $white;
+        border-radius: 10px;
+        border-color: $transparent;
+        margin-top: 20px;
+        font-size: 1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition-duration: $animationtime;
+
+        &:hover{
+            background-color: $secundary;
+            box-shadow: $boxshadow;
+        }
+    }
+}
