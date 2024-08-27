@@ -1,56 +1,39 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { auth, googleProvider } from '../../firebase';
-import { signOut, updatePassword, deleteUser, reauthenticateWithCredential, EmailAuthProvider, reauthenticateWithPopup } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import PocketBase from 'pocketbase';
 import { useNavigate } from 'react-router-dom';
 
+// Initialize PocketBase client
+const pb = new PocketBase('http://127.0.0.1:8090');
+
 const Welcome: React.FC = () => {
-  const user = useMemo(() => auth.currentUser, []);
+  const user = pb.authStore.model; // Get the current authenticated user
   const [passwords, setPasswords] = useState({ currentForChange: '', newPassword: '', currentForDelete: '' });
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      if (!currentUser) {
-        navigate('/'); // Redirect to home page if user is not authenticated
-      }
-    });
 
-    return () => unsubscribe(); // Clean up subscription on component unmount
-  }, [navigate]);
+  useEffect(() => {
+    if (!pb.authStore.isValid || !user) {
+      navigate('/'); // Redirect to home page if user is not authenticated
+    }
+  }, [navigate, user]);
 
   const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      navigate('/'); // Redirect to the home page after logout
-    } catch (error) {
-      console.error('Error signing out: ', error);
-    }
+    pb.authStore.clear(); // Log out the user
+    navigate('/'); // Redirect to the home page after logout
   };
 
   const reauthenticate = async (password: string) => {
     if (!user) return false;
 
-    if (user.providerData.some((provider) => provider.providerId === 'password')) {
-      // Reauthenticate using password
-      const credential = EmailAuthProvider.credential(user.email!, password);
-      try {
-        await reauthenticateWithCredential(user, credential);
-        return true;
-      } catch (error) {
-        setError('Reauthentication failed. Please check your password.');
-        return false;
-      }
-    } else {
-      // Reauthenticate using Google (or any other provider the user logged in with)
-      try {
-        await reauthenticateWithPopup(user, googleProvider);
-        return true;
-      } catch (error) {
-        setError('Reauthentication failed using Google. Please try again.');
-        return false;
-      }
+    try {
+      // Reauthenticate the user by re-logging them in
+      await pb.collection('usersAuth').authWithPassword(user.email, password);
+      return true;
+    } catch (error) {
+      setError('Reauthentication failed. Please check your password.');
+      return false;
     }
   };
 
@@ -61,7 +44,12 @@ const Welcome: React.FC = () => {
     if (!reauthenticated) return;
 
     try {
-      await updatePassword(user, passwords.newPassword);
+      // Update the user's password in PocketBase
+      await pb.collection('usersAuth').update(user.id, {
+        password: passwords.newPassword,
+        passwordConfirm: passwords.newPassword,
+        oldPassword: passwords.currentForChange,
+      });
       setSuccessMessage('Password updated successfully!');
       setPasswords({ ...passwords, currentForChange: '', newPassword: '' });
     } catch (error) {
@@ -76,9 +64,10 @@ const Welcome: React.FC = () => {
     if (!reauthenticated) return;
 
     try {
-      await deleteUser(user);
+      // Delete the user account in PocketBase
+      await pb.collection('usersAuth').delete(user.id);
       alert('Account deleted successfully.');
-      window.location.reload(); // Reload the page after account deletion
+      handleLogout(); // Log the user out and redirect after account deletion
     } catch (error) {
       setError('Error deleting account: ' + (error as Error).message);
     }
@@ -93,8 +82,8 @@ const Welcome: React.FC = () => {
 
   return (
     <div className="welcome-container col-12">
-      <h1 className='col-12'>Welcome, {user?.displayName || 'User'}!</h1>
-      <p className='col-12'>Email: {user?.email}</p>
+      <h1 className="col-12">Welcome, {user?.name || 'User'}!</h1>
+      <p className="col-12">Email: {user?.email}</p>
 
       <div className="update-info col-12 col-t-12 col-d-10 col-ld-8">
         <h3>Change Password</h3>
@@ -131,7 +120,7 @@ const Welcome: React.FC = () => {
         <button onClick={handleDeleteAccount} className="submit-button delete-button">Delete Account</button>
       </div>
       {error && <p className="error col-12">{error}</p>}
-      <div className='button-logout col-12'>
+      <div className="button-logout col-12">
         <button onClick={handleLogout} className="logout-button">Logout</button>
       </div>
     </div>

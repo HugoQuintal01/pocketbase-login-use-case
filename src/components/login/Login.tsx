@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { auth, appleProvider, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, sendPasswordResetEmail } from '../../firebase';
+import PocketBase from 'pocketbase';
 import { useNavigate } from 'react-router-dom';
+
+// Initialize PocketBase client
+const pb = new PocketBase('http://127.0.0.1:8090');
 
 // Error messages dictionary
 const ERROR_MESSAGES = {
@@ -14,6 +17,7 @@ const ERROR_MESSAGES = {
 };
 
 const Login: React.FC = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -27,6 +31,7 @@ const Login: React.FC = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    if (name === 'name') setName(value);
     if (name === 'email') setEmail(value);
     if (name === 'password') setPassword(value);
     if (name === 'confirmPassword') setConfirmPassword(value);
@@ -59,13 +64,26 @@ const Login: React.FC = () => {
 
     try {
       if (isRegistering) {
-        await createUserWithEmailAndPassword(auth, email, password);
+        // Register new user with PocketBase
+        const data = {
+          name,
+          email,
+          password,
+          passwordConfirm: confirmPassword,
+        };
+
+        await pb.collection('usersAuth').create(data);
+        // Optionally request email verification
+        await pb.collection('usersAuth').requestVerification(email);
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        // Authenticate existing user with PocketBase
+        await pb.collection('usersAuth').authWithPassword(email, password);
       }
       navigate('/dashboard');
     } catch (err) {
+      console.error(err); // For debugging purposes
       const errorMessage = (err as Error).message;
+
       if (errorMessage.includes('auth/email-already-in-use')) {
         setError(ERROR_MESSAGES.EMAIL_ALREADY_IN_USE);
       } else if (errorMessage.includes('auth/wrong-password')) {
@@ -80,24 +98,15 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleSocialSignIn = async (provider: any) => {
+  const handleSocialSignIn = async (provider: 'google' | 'facebook') => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      console.log(result.user);
+      // OAuth2 authentication with PocketBase
+      const authData = await pb.collection('usersAuth').authWithOAuth2({ provider });
+      console.log(pb.authStore.isValid);
+      console.log(pb.authStore.token);
       navigate('/dashboard');
     } catch (err) {
       setError((err as Error).message);
-    }
-  };
-
-  const handleResetPassword = async () => {
-    try {
-      await sendPasswordResetEmail(auth, resetEmail);
-      alert('Password reset email sent! Please check your inbox.');
-      setShowResetPassword(false);
-    } catch (error) {
-      console.error('Error sending password reset email: ', error);
-      setResetError('Error sending password reset email. Please try again.');
     }
   };
 
@@ -108,6 +117,17 @@ const Login: React.FC = () => {
         <p>{isRegistering ? 'Join us by creating a new account.' : 'Please sign in to continue.'}</p>
       </div>
       <form onSubmit={handleSubmit} className="form-container col-12">
+      {isRegistering && (
+        <input
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleInputChange}
+          placeholder="Full Name"
+          required
+          className="input-field"
+        />
+      )}
         <input
           type="email"
           name="email"
@@ -142,43 +162,13 @@ const Login: React.FC = () => {
         </button>
         {error && <p className="error">{error}</p>}
         {passwordStrengthError && <p className="error">{passwordStrengthError}</p>}
-        {!isRegistering && (
-          <>
-            <button
-              type="button"
-              onClick={() => setShowResetPassword(!showResetPassword)}
-              className="forgot-password-button"
-            >
-              Forgot Password?
-            </button>
-            {showResetPassword && (
-              <div className="reset-password-container">
-                <div className="reset-password-content">
-                  <input
-                    type="email"
-                    name="resetEmail"
-                    value={resetEmail}
-                    onChange={handleInputChange}
-                    placeholder="Enter your email"
-                    required
-                    className="input-field"
-                  />
-                  <button type="button" onClick={handleResetPassword} className="submit-button">
-                    Send Password Reset Email
-                  </button>
-                  {resetError && <p className="error">{resetError}</p>}
-                </div>
-              </div>
-            )}
-          </>
-        )}
       </form>
       <div className='other-sign col-12'>
-        <button onClick={() => handleSocialSignIn(appleProvider)} className="apple-signin-button">
-          Sign in with Apple
-        </button>
-        <button onClick={() => handleSocialSignIn(googleProvider)} className="google-signin-button">
+        <button onClick={() => handleSocialSignIn('google')} className="google-signin-button">
           Sign in with Google
+        </button>
+        <button onClick={() => handleSocialSignIn('facebook')} className="google-signin-button">
+          Sign in with Facebook
         </button>
         <button onClick={() => setIsRegistering(!isRegistering)} className="toggle-auth-button">
           {isRegistering ? 'Already have an account? Login' : 'Need an account? Register'}
