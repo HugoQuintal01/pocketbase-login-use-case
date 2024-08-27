@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { auth } from '../../firebase';
-import { signOut, updatePassword, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { auth, googleProvider } from '../../firebase';
+import { signOut, updatePassword, deleteUser, reauthenticateWithCredential, EmailAuthProvider, reauthenticateWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 const Welcome: React.FC = () => {
@@ -30,14 +30,27 @@ const Welcome: React.FC = () => {
   };
 
   const reauthenticate = async (password: string) => {
-    if (!user || !password) return false;
-    const credential = EmailAuthProvider.credential(user.email!, password);
-    try {
-      await reauthenticateWithCredential(user, credential);
-      return true;
-    } catch (error) {
-      setError('Reauthentication failed. Please check your password.');
-      return false;
+    if (!user) return false;
+
+    if (user.providerData.some((provider) => provider.providerId === 'password')) {
+      // Reauthenticate using password
+      const credential = EmailAuthProvider.credential(user.email!, password);
+      try {
+        await reauthenticateWithCredential(user, credential);
+        return true;
+      } catch (error) {
+        setError('Reauthentication failed. Please check your password.');
+        return false;
+      }
+    } else {
+      // Reauthenticate using Google (or any other provider the user logged in with)
+      try {
+        await reauthenticateWithPopup(user, googleProvider);
+        return true;
+      } catch (error) {
+        setError('Reauthentication failed using Google. Please try again.');
+        return false;
+      }
     }
   };
 

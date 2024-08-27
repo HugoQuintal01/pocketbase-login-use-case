@@ -728,6 +728,10 @@ p, li, div, span, a {
 .login-container .form-container .reset-password-container .reset-password-content .error {
   color: #ffffff;
 }
+.login-container .form-container .error {
+  width: 100%;
+  text-align: center;
+}
 .login-container .other-sign {
   display: flex;
   justify-content: center;
