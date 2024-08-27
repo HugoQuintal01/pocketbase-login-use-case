@@ -840,6 +840,7 @@ p, li, div, span, a {
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
+  padding: 50px 0;
 }
 .welcome-container h1, .welcome-container p {
   margin: 10px 0;
