@@ -6,7 +6,7 @@ import Dashboard from './pages/Dashboard'; // Import Dashboard page
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
