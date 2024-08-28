@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PocketBase from 'pocketbase';
 import { useNavigate } from 'react-router-dom';
 
@@ -98,15 +98,20 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleSocialSignIn = async (provider: 'google' | 'facebook') => {
+  // Check if user is already logged in on component mount
+  useEffect(() => {
+    if (pb.authStore.isValid) {
+      navigate('/dashboard'); // Redirect if already authenticated
+    }
+  }, []);
+
+  const handleSocialSignIn = async (provider: 'google') => {
     try {
-      // OAuth2 authentication with PocketBase
-      const authData = await pb.collection('usersAuth').authWithOAuth2({ provider });
-      console.log(pb.authStore.isValid);
-      console.log(pb.authStore.token);
-      navigate('/dashboard');
+      await pb.collection('usersAuth').authWithOAuth2({ provider: 'google' });
+      navigate('/dashboard'); // Redirect after successful login
     } catch (err) {
-      setError((err as Error).message);
+      console.error('Google Sign-In error:', err);
+      setError('Google Sign-In failed. Please try again.');
     }
   };
 
@@ -117,17 +122,17 @@ const Login: React.FC = () => {
         <p>{isRegistering ? 'Join us by creating a new account.' : 'Please sign in to continue.'}</p>
       </div>
       <form onSubmit={handleSubmit} className="form-container col-12">
-      {isRegistering && (
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleInputChange}
-          placeholder="Full Name"
-          required
-          className="input-field"
-        />
-      )}
+        {isRegistering && (
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleInputChange}
+            placeholder="Full Name"
+            required
+            className="input-field"
+          />
+        )}
         <input
           type="email"
           name="email"
@@ -167,9 +172,11 @@ const Login: React.FC = () => {
         <button onClick={() => handleSocialSignIn('google')} className="google-signin-button">
           Sign in with Google
         </button>
-        <button onClick={() => handleSocialSignIn('facebook')} className="google-signin-button">
+        {/*
+        <button className="facebook-signin-button" disabled>
           Sign in with Facebook
         </button>
+        */}
         <button onClick={() => setIsRegistering(!isRegistering)} className="toggle-auth-button">
           {isRegistering ? 'Already have an account? Login' : 'Need an account? Register'}
         </button>
