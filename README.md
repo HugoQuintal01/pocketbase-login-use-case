@@ -45,7 +45,7 @@ This project is a React-based authentication system that includes login, registr
 git clone https://github.com/HugoQuintal01/pocketbase-login-use-case.git
 
 2. Navigate to the project directory:
-cd login-use-case
+cd pocketbase-login-use-case
 
 3. Install dependencies:
 npm install
