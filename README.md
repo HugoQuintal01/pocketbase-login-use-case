@@ -2,11 +2,6 @@
 
 ---
 
-#### Demo
-https://hugoquintal01.github.io/login-use-case/
-
----
-
 ## Table of Contents
 
 1. [Introduction](#introduction)
@@ -42,7 +37,7 @@ This project is a React-based authentication system that includes login, registr
 
 - Node.js
 - npm or yarn
-- Firebase account
+- [PocketBase](https://pocketbase.io) (download the executable)
 
 ### Installation
 
@@ -55,13 +50,17 @@ cd login-use-case
 3. Install dependencies:
 npm install
 
-4. Set up Firebase configuration by creating a .env file in the root directory with the following variables:
-- REACT_APP_FIREBASE_API_KEY=your-api-key
-- REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-- REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-- REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-- REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-- REACT_APP_FIREBASE_APP_ID=your-app-id
+4.	Set up PocketBase:
+- 1. Download PocketBase:
+   - Download the appropriate PocketBase executable from the official releases page for your operating system.
+- 2. Run PocketBase:
+   - Place the pocketbase executable in the root of the project directory and start the PocketBase server:
+   - ./pocketbase serve
+- 3. Import Collections:
+   - If you have been provided with a JSON file containing the collections, import it into PocketBase using the admin UI or the command line.
+- 4. Configure the frontend to connect to PocketBase:
+   - Ex: REACT_APP_POCKETBASE_URL=http://localhost:8090
+
 
 ### Usage
 
