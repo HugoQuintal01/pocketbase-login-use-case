@@ -42,7 +42,7 @@ This project is a React-based authentication system that includes login, registr
 ### Installation
 
 1. Clone the repository:
-git clone https://github.com/hugoquintal01/login-use-case.git
+git clone https://github.com/HugoQuintal01/pocketbase-login-use-case.git
 
 2. Navigate to the project directory:
 cd login-use-case
