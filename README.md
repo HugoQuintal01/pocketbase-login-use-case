@@ -51,14 +51,14 @@ cd login-use-case
 npm install
 
 4.	Set up PocketBase:
-- 1. Download PocketBase:
+- Download PocketBase:
    - Download the appropriate PocketBase executable from the official releases page for your operating system.
-- 2. Run PocketBase:
+- Run PocketBase:
    - Place the pocketbase executable in the root of the project directory and start the PocketBase server:
    - ./pocketbase serve
-- 3. Import Collections:
+- Import Collections:
    - If you have been provided with a JSON file containing the collections, import it into PocketBase using the admin UI or the command line.
-- 4. Configure the frontend to connect to PocketBase:
+- Configure the frontend to connect to PocketBase:
    - Ex: REACT_APP_POCKETBASE_URL=http://localhost:8090
 
 
