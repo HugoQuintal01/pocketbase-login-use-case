@@ -14,6 +14,8 @@ const ERROR_MESSAGES = {
   PASSWORD_MISMATCH: 'Passwords do not match',
   WEAK_PASSWORD: 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
   GENERIC_ERROR: 'The email address or password you entered is incorrect. Please try again.',
+  RESET_EMAIL_SENT: 'A password reset email has been sent to your address.',
+  RESET_EMAIL_FAILED: 'Failed to send password reset email. Please try again.',
 };
 
 const Login: React.FC = () => {
@@ -27,6 +29,7 @@ const Login: React.FC = () => {
   const [resetEmail, setResetEmail] = useState('');
   const [showResetPassword, setShowResetPassword] = useState(false);
   const [resetError, setResetError] = useState<string | null>(null);
+  const [resetSuccess, setResetSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,12 +101,39 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleResetPassword = async () => {
+    setResetError(null);
+    setResetSuccess(null);
+  
+    try {
+      // Check if email exists in the users collection
+      //const users = await pb.collection('usersAuth').getFirstListItem(`email="${resetEmail}"`);
+      
+      const users = await pb.collection('usersAuth').getFullList({
+        filter: `email="${resetEmail}"`,
+      });
+  
+      if (!users) {
+        // Email does not exist
+        setResetError('This email is not registered.');
+        return;
+      }
+  
+      // Email exists, proceed to request password reset
+      await pb.collection('usersAuth').requestPasswordReset(resetEmail);
+      setResetSuccess('Password reset email sent.');
+    } catch (err) {
+      console.error('Password reset error:', err);
+      setResetError('Failed to send password reset email.');
+    }
+  };
+
   // Check if user is already logged in on component mount
   useEffect(() => {
     if (pb.authStore.isValid) {
       navigate('/dashboard'); // Redirect if already authenticated
     }
-  }, []);
+  }, [navigate]);
 
   const handleSocialSignIn = async (provider: 'google') => {
     try {
@@ -167,6 +197,37 @@ const Login: React.FC = () => {
         </button>
         {error && <p className="error">{error}</p>}
         {passwordStrengthError && <p className="error">{passwordStrengthError}</p>}
+        {!isRegistering && (
+          <>
+            <button
+              type="button"
+              onClick={() => setShowResetPassword(!showResetPassword)}
+              className="forgot-password-button"
+            >
+              Forgot Password?
+            </button>
+            {showResetPassword && (
+              <div className="reset-password-container">
+                <div className="reset-password-content">
+                  <input
+                    type="email"
+                    name="resetEmail"
+                    value={resetEmail}
+                    onChange={handleInputChange}
+                    placeholder="Enter your email"
+                    required
+                    className="input-field"
+                  />
+                  <button type="button" onClick={handleResetPassword} className="submit-button">
+                    Send Password Reset Email
+                  </button>
+                  {resetError && <p className="error">{resetError}</p>}
+                  {resetSuccess && <p className="success">{resetSuccess}</p>}
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </form>
       <div className='other-sign col-12'>
         <button onClick={() => handleSocialSignIn('google')} className="google-signin-button">

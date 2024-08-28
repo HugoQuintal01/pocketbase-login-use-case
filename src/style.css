@@ -727,6 +727,11 @@ p, li, div, span, a {
 }
 .login-container .form-container .reset-password-container .reset-password-content .error {
   color: #ffffff;
+  font-weight: 300;
+}
+.login-container .form-container .reset-password-container .reset-password-content .success {
+  color: #ffffff;
+  font-weight: 300;
 }
 .login-container .form-container .error {
   width: 100%;
