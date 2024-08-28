@@ -17,7 +17,7 @@
 
 ## Introduction
 
-This project is a React-based authentication system that includes login, registration, and password recovery features. It uses Firebase for user authentication and supports email/password as well as OAuth providers like Google and Apple.
+This project is a React-based authentication system that includes login, registration, and password recovery features. It uses Pocketbase for user authentication and supports email/password as well as OAuth providers like Google and Facebook.
 
 **Note:** On the home page, you can uncomment the `<AuthAnimation />` component to display a Lottie animation.
 
@@ -81,10 +81,6 @@ To format the codebase, run npm run format. This will apply consistent code form
 
 6. Install Dependencies:
 To install project dependencies, run npm install.
-
-## Configuration
-
-The project uses environment variables to configure Firebase. You can set these variables in the .env file in the root directory.
 
 ## Contributing
 
